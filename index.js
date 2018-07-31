@@ -26,6 +26,7 @@ class CountDown extends React.Component {
     until: PropTypes.number,
     onFinish: PropTypes.func,
     onPress: PropTypes.func,
+    textSize: PropTypes.number
   };
 
   state = {
@@ -101,14 +102,14 @@ class CountDown extends React.Component {
       ]}>
         <Text style={[
           styles.digitTxt,
-          {fontSize: 15},
+          {fontSize: this.props.textSize},
           {color: digitTxtColor}
         ]}>
           {d}
         </Text>
         <Text style={[
           styles.digitTxt,
-          {fontSize: 15},
+          {fontSize: this.props.textSize},
           {color: digitTxtColor}
         ]}>
           {spacedLabel}
@@ -176,6 +177,7 @@ CountDown.defaultProps = {
   labelS: "Secs",
   until: 0,
   size: 15,
+  textSize: 15
 };
 
 const styles = StyleSheet.create({
