@@ -87,20 +87,31 @@ class CountDown extends React.Component {
     }
   };
 
-  renderDigit = (d) => {
+  renderDigit = (d, label) => {
     const {digitBgColor, digitTxtColor, size} = this.props;
+    let spacedLabel = ' ' + label    
+    if(label === 'Days' && d <= 1) {
+      spacedLabel = ' Day'
+    }
     return (
       <View style={[
         styles.digitCont,
-        {backgroundColor: digitBgColor},
-        {width: size * 2.3, height: size * 2.6},
+        {backgroundColor: digitBgColor, flexDirection: 'row'}
+        // {width: size * 2.3, height: size * 2.6},
       ]}>
         <Text style={[
           styles.digitTxt,
-          {fontSize: size},
+          {fontSize: 15},
           {color: digitTxtColor}
         ]}>
           {d}
+        </Text>
+        <Text style={[
+          styles.digitTxt,
+          {fontSize: 15},
+          {color: digitTxtColor}
+        ]}>
+          {spacedLabel}
         </Text>
       </View>
     );
@@ -112,15 +123,15 @@ class CountDown extends React.Component {
     return (
       <View style={styles.doubleDigitCont}>
         <View style={styles.timeInnerCont}>
-          {this.renderDigit(digits)}
+          {this.renderDigit(digits, label)}
         </View>
-        <Text style={[
+        {/* <Text style={[
           styles.timeTxt,
           {fontSize: size / 1.8},
           {color: timeTxtColor},
         ]}>
           {label}
-        </Text>
+        </Text> */}
       </View>
     );
   };
@@ -129,7 +140,7 @@ class CountDown extends React.Component {
     const {timeToShow} = this.props;
     const {until} = this.state;
     const {days, hours, minutes, seconds} = this.getTimeLeft();
-    const newTime = sprintf('%02d:%02d:%02d:%02d', days, hours, minutes, seconds).split(':');
+    const newTime = sprintf('%2d:%2d:%2d:%2d', days, hours, minutes, seconds).split(':');
     const Component = this.props.onPress ? TouchableOpacity : View;
 
     return (
@@ -140,7 +151,7 @@ class CountDown extends React.Component {
         {_.includes(timeToShow, 'D') ? this.renderDoubleDigits(this.props['labelD'], newTime[0]) : null}
         {_.includes(timeToShow, 'H') ? this.renderDoubleDigits(this.props['labelH'], newTime[1]) : null}
         {_.includes(timeToShow, 'M') ? this.renderDoubleDigits(this.props['labelM'], newTime[2]) : null}
-        {_.includes(timeToShow, 'S') ? this.renderDoubleDigits(this.props['labelS'], newTime[3]) : null}
+        {/* {_.includes(timeToShow, 'S') ? this.renderDoubleDigits(this.props['labelS'], newTime[3]) : null} */}
       </Component>
     );
   };
@@ -160,9 +171,9 @@ CountDown.defaultProps = {
   timeTxtColor: DEFAULT_TIME_TXT_COLOR,
   timeToShow: DEFAULT_TIME_TO_SHOW,
   labelD: "Days",
-  labelH: "Hours",
-  labelM: "Minutes",
-  labelS: "Seconds",
+  labelH: "Hrs",
+  labelM: "Mins",
+  labelS: "Secs",
   until: 0,
   size: 15,
 };
