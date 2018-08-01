@@ -76,7 +76,6 @@ class CountDown extends React.Component {
 
   updateTimer = () => {
     const {until} = this.state;
-
     if (until <= 1) {
       clearInterval(this.timer);
       if (this.onFinish) {
@@ -120,7 +119,6 @@ class CountDown extends React.Component {
 
   renderDoubleDigits = (label, digits) => {
     const {timeTxtColor, size} = this.props;
-
     return (
       <View style={styles.doubleDigitCont}>
         <View style={styles.timeInnerCont}>
@@ -143,13 +141,12 @@ class CountDown extends React.Component {
     const {days, hours, minutes, seconds} = this.getTimeLeft();
     const newTime = sprintf('%2d:%2d:%2d:%2d', days, hours, minutes, seconds).split(':');
     const Component = this.props.onPress ? TouchableOpacity : View;
-
     return (
       <Component
         style={styles.timeCont}
         onPress={this.props.onPress}
       >
-        {_.includes(timeToShow, 'D') ? this.renderDoubleDigits(this.props['labelD'], newTime[0]) : null}
+        {newTime[0] > 0 && _.includes(timeToShow, 'D') ? this.renderDoubleDigits(this.props['labelD'], newTime[0]) : null}
         {_.includes(timeToShow, 'H') ? this.renderDoubleDigits(this.props['labelH'], newTime[1]) : null}
         {_.includes(timeToShow, 'M') ? this.renderDoubleDigits(this.props['labelM'], newTime[2]) : null}
         {/* {_.includes(timeToShow, 'S') ? this.renderDoubleDigits(this.props['labelS'], newTime[3]) : null} */}
