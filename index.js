@@ -93,6 +93,9 @@ class CountDown extends React.Component {
     if(label === 'Days' && d <= 1) {
       spacedLabel = ' Day'
     }
+    if(d < 0) {
+      d = 0
+    }
     return (
       <View style={[
         styles.digitCont,
